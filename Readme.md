@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Алина Бирюкова](https://up.htmlacademy.ru/javascript/22/user/102697).
-* Наставник: `Неизвестно`.
+* Наставник: [Дмитрий Дроганов](https://htmlacademy.ru/profile/dmdragon).
 
 ---
 
