@@ -21,7 +21,7 @@ const getRandomFloat = function (min, max, decimal = 2) {
   } if (max < min || max == min) {
     alert('Значение «от» должно быть больше значению «до»');
   }
-  return +((Math.random() * (max - min) + min).toFixed(decimal));
+  return ((Math.random() * (max - min) + min).toFixed(decimal));
 }
 
-alert(getRandomFloat(100.46, 200.46));
+alert(getRandomFloat(100.46456456, 200.46456456));
