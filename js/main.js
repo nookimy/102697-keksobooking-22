@@ -1,16 +1,17 @@
-// Функция, возвращающая случайное целое число из переданного диапазона включительно. Ссылка на источник https://stackoverflow.com/questions/1527803/generating-random-whole-numbers-in-javascript-in-a-specific-range
+// Функция, возвращающая случайное целое число из переданного диапазона включительно.
 const getRandomInt = function (min, max) {
   if (min < 0) {
     alert('Диапазон чисел должен быть положительным');
-  } if (max < min || max == min) {
-    alert('Значение «от» должно быть больше значению «до»');
+    return null;
   }
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  if (max < min || max == min) {
+    alert('Значение «от» должно быть больше значению «до»');
+    return null;
+  }
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-alert(getRandomInt(100.46, 200.46));
+alert(getRandomInt(-100.46, 200.46));
 
 
 
@@ -18,8 +19,11 @@ alert(getRandomInt(100.46, 200.46));
 const getRandomFloat = function (min, max, decimal = 2) {
   if (min < 0) {
     alert('Диапазон чисел должен быть положительным');
-  } if (max < min || max == min) {
+    return null;
+  }
+  if (max < min || max == min) {
     alert('Значение «от» должно быть больше значению «до»');
+    return null;
   }
   return ((Math.random() * (max - min) + min).toFixed(decimal));
 }
