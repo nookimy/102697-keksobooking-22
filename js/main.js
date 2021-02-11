@@ -1,81 +1,73 @@
 'use strict';
 
-// Функция, возвращающая случайное целое число из переданного диапазона включительно.
 const getRandomInt = function (min, max) {
+  if (min < 0 || max < min || max == min) {
+    return undefined;
+  }
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-// Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно.
-const getRandomFloat = function (min, max) {
-  return ((Math.random() * (max - min) + min));
+const getRandomFloat = function (min, max, decimal = 2) {
+  if (min < 0 || max < min || max == min) {
+    alert('Диапазон чисел должен быть положительным');
+    return undefined;
+  }
+  return ((Math.random() * (max - min) + min).toFixed(decimal));
 }
 
-// Возврат случайного значения из массива
-const getRandomElement = function (element) {
-  return element[getRandomInt(0, element.length)];
+// Массив случайной длины
+const getArrayRandomLength = function (array) {
+  const inputLength = array.length;
+
+  const outputArray = [];
+  const outputLength = getRandomInt(0, inputLength);
+
+  for (let i = 0; i < outputLength - 1; i++) {
+      let idx = getRandomInt(0, inputLength);
+      let item = array[idx];
+    outputArray.push(item);
+  }
+  return outputArray;
 }
 
-// Возврат массива случайной длины из значений
-const getRandomLength = function (array) {
-  let newArray = [];
-  let length = getRandomInt(0, array.length);
+const createAuthor = function () {
+  return {
+    avatar: 'img/avatars/user0' + getRandomInt(1, 8) + '.png'
+  };
+};
+
+const createLocation = function () {
+  return {
+    x: getRandomFloat(35.65000, 35.70000, 6),
+    y: getRandomFloat(139.70000, 139.80000, 6)
+  }
+}
+
+const createOffer = function () {
+  const offerTypes = ['palace', 'flat', 'house', 'bungalow'];
+  const offerCheckins = ['12:00', '13:00', '14:00'];
+  const offerCkouts = ['12:00', '13:00', '14:00'];
+  const offerFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+
+  return {
+    title: 'Заголовок предложения',
+    address: createLocation().x + ', ' + createLocation().y,
+    price: getRandomInt(1, 10000),
+    type: offerTypes[getRandomInt(0, offerTypes.length - 1)],
+    rooms: getRandomInt(1, 4),
+    guests: getRandomInt(1, 8),
+    checkin: offerCheckins[getRandomInt(0, offerCheckins.length - 1)],
+    checkout: offerCkouts[getRandomInt(0, offerCkouts.length - 1)],
+    features: getArrayRandomLength(offerFeatures),
+    description: 'Описание помещения',
+    photos: ''
+  }
 }
 
 const createAd = function () {
-  const AD_TITLES = [
-    'Заголовок 1',
-    'Заголовок 2',
-    'Заголовок 3'
-  ];
+  return Object.assign({}, createAuthor(), createOffer(), createLocation())
+}
 
-  let location = {
-    x: getRandomFloat(35.65000, 35.70000),
-    y: getRandomFloat(139.70000, 139.80000)
-  };
-
-  const AD_TYPES = [
-    'palace',
-    'flat',
-    'house',
-    'bungalow'
-  ];
-
-  const AD_CHECKINS = [
-    '12:00',
-    '13:00',
-    '14:00'
-  ];
-
-  const AD_CHECKOUTS = [
-    '12:00',
-    '13:00',
-    '14:00'
-  ];
-
-
-  return {
-    author: {
-      avatar: 'img/avatars/user0' + getRandomInt(1, 8) + '.png'
-    },
-    offer: {
-      title: getRandomElement(AD_TITLES),
-      address: location.x.toFixed(5) + ', ' + location.y.toFixed(5),
-      price: getRandomInt(1, 10000),
-      type: getRandomElement(AD_TYPES),
-      rooms: getRandomInt(1, 4),
-      guests: getRandomInt(1, 8),
-      checkin: getRandomElement(AD_CHECKINS),
-      checkout: getRandomElement(AD_CHECKOUTS),
-      features: '',
-      description: 'Описание',
-      photos: ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg']
-    },
-    location: {
-      x: 35.65000,
-      y: 139.70000
-    }
-  };
-};
-const SIMILAR_AD_COUNT = 10;
-const similarAds = new Array(SIMILAR_AD_COUNT).fill(null).map(() => createAd());
-console.log(similarAds);
+const ADS_COUNT = 10;
+const arrayAds = new Array(ADS_COUNT).fill(null).map(() => createAd());
+console.log(arrayAds);
