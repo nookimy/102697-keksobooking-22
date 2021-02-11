@@ -1,7 +1,7 @@
 'use strict';
 
 const getRandomInt = function (min, max) {
-  if (min < 0 || max < min || max == min) {
+  if (min < 0 || max < min) {
     return undefined;
   }
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -17,15 +17,16 @@ const getRandomFloat = function (min, max, decimal = 2) {
 
 // Массив случайной длины
 const getArrayRandomLength = function (array) {
-  const inputLength = array.length;
+  const inputLength = array.length; // длинна входного массива
+  let inputCopyList = array.slice(0); //коппируем массив; в цикле будем брать из него рандомные элементы, взятое будем удалять , чтобы не взять снова
 
-  const outputArray = [];
-  const outputLength = getRandomInt(0, inputLength);
-
-  for (let i = 0; i < outputLength - 1; i++) {
-      let idx = getRandomInt(0, inputLength);
-      let item = array[idx];
-    outputArray.push(item);
+  const outputArray = []; //выходной массив
+  const outputLength = getRandomInt(0, inputLength); //длинна выходного массива
+  for (let i = 0; i < outputLength; i++) { //формируем выходной массив
+    let idx = getRandomInt(0, inputCopyList.length - 1); // нужен рандомный индекс, чтобы взять какое-то значение
+    let item = inputCopyList[idx]; //взяли эллемент из копии
+    outputArray.push(item);  // вставили его в выходной массив
+    inputCopyList.splice(idx, 1); //удаляем эллмент из коппии, чтобы на следующей итерации небыло возможности взять дубль.
   }
   return outputArray;
 }
