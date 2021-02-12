@@ -24,11 +24,11 @@ const getArrayRandomLength = function (inputArray) {
   const outputArray = []; //выходной массив
 
   for (let i = 0; i < length; i++) { //формируем выходной массив
-    const randomElement = getRandomArrayElement(copyArray); //взяли эллемент из копии
+    const randomIndex = getRandomInt(0, copyArray.length - 1);
+    const randomElement = copyArray[randomIndex]; //взяли эллемент из копии
     // console.log(randomElement);
     outputArray.push(randomElement);  // вставили его в выходной массив
-    copyArray.splice(randomElement, 1); //удаляем элемент из коппии, чтобы на следующей итерации небыло возможности взять дубль.
-    return copyArray;
+    copyArray.splice(randomIndex, 1); //удаляем элемент из коппии, чтобы на следующей итерации небыло возможности взять дубль.
   }
   return outputArray;
 }
@@ -75,4 +75,5 @@ const createAd = function () {
 const ADS_COUNT = 10;
 const arrayAds = new Array(ADS_COUNT).fill(null).map(() => createAd());
 
-arrayAds;
+console.log(arrayAds);
+
