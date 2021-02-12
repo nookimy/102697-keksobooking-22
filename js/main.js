@@ -38,14 +38,14 @@ const offerPhotos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http
 
 const createAuthor = function () {
   return {
-    avatar: 'img/avatars/user0' + getRandomInt(1, 8) + '.png'
+    avatar: 'img/avatars/user0' + getRandomInt(1, 8) + '.png',
   };
 };
 
 const createLocation = function () {
   return {
     x: getRandomFloat(35.65000, 35.70000, 6),
-    y: getRandomFloat(139.70000, 139.80000, 6)
+    y: getRandomFloat(139.70000, 139.80000, 6),
   }
 }
 
@@ -61,7 +61,7 @@ const createOffer = function () {
     checkout: getRandomArrayElement(offerCkouts),
     features: getArrayRandomLength(offerFeatures),
     description: 'Описание помещения',
-    photos: getArrayRandomLength(offerPhotos)
+    photos: getArrayRandomLength(offerPhotos),
   }
 }
 
@@ -71,6 +71,3 @@ const createAd = function () {
 
 const ADS_COUNT = 10;
 const arrayAds = new Array(ADS_COUNT).fill(null).map(() => createAd());
-
-console.log(arrayAds);
-
