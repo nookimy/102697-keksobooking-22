@@ -75,4 +75,4 @@ const createAd = function () {
 const ADS_COUNT = 10;
 const arrayAds = new Array(ADS_COUNT).fill(null).map(() => createAd());
 
-console.log(arrayAds);
+arrayAds;
