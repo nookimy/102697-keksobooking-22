@@ -18,14 +18,17 @@ const getRandomArrayElement = function (array) {
   return array[getRandomInt(0, array.length - 1)];
 }
 
-const getArrayRandomLength = function (array) {
-  const length = getRandomInt(0, array.length); //длина выходного массива
+const getArrayRandomLength = function (inputArray) {
+  const length = getRandomInt(0, inputArray.length); //длина выходного массива
+  const copyArray = inputArray.slice(0); //копия массива из которой будем убирать уже использованные элементы
   const outputArray = []; //выходной массив
 
   for (let i = 0; i < length; i++) { //формируем выходной массив
-    const randomElement = getRandomArrayElement(array); //взяли эллемент из копии
+    const randomElement = getRandomArrayElement(copyArray); //взяли эллемент из копии
+    // console.log(randomElement);
     outputArray.push(randomElement);  // вставили его в выходной массив
-    array.splice(randomElement, 1); //удаляем элемент из коппии, чтобы на следующей итерации небыло возможности взять дубль.
+    copyArray.splice(randomElement, 1); //удаляем элемент из коппии, чтобы на следующей итерации небыло возможности взять дубль.
+    return copyArray;
   }
   return outputArray;
 }
@@ -72,4 +75,4 @@ const createAd = function () {
 const ADS_COUNT = 10;
 const arrayAds = new Array(ADS_COUNT).fill(null).map(() => createAd());
 
-arrayAds;
+console.log(arrayAds);
