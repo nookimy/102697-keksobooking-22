@@ -8,28 +8,33 @@ const getRandomInt = function (min, max) {
 }
 
 const getRandomFloat = function (min, max, decimal = 2) {
-  if (min < 0 || max < min || max == min) {
-    alert('Диапазон чисел должен быть положительным');
+  if (min < 0 || max < min) {
     return undefined;
   }
   return ((Math.random() * (max - min) + min).toFixed(decimal));
 }
 
-// Массив случайной длины
-const getArrayRandomLength = function (array) {
-  const inputLength = array.length; // длинна входного массива
-  let inputCopyList = array.slice(0); //коппируем массив; в цикле будем брать из него рандомные элементы, взятое будем удалять , чтобы не взять снова
+const getRandomArrayElement = function (array) {
+  return array[getRandomInt(0, array.length - 1)];
+}
 
+const getArrayRandomLength = function (array) {
+  const length = getRandomInt(0, array.length); //длина выходного массива
   const outputArray = []; //выходной массив
-  const outputLength = getRandomInt(0, inputLength); //длинна выходного массива
-  for (let i = 0; i < outputLength; i++) { //формируем выходной массив
-    let idx = getRandomInt(0, inputCopyList.length - 1); // нужен рандомный индекс, чтобы взять какое-то значение
-    let item = inputCopyList[idx]; //взяли эллемент из копии
-    outputArray.push(item);  // вставили его в выходной массив
-    inputCopyList.splice(idx, 1); //удаляем эллмент из коппии, чтобы на следующей итерации небыло возможности взять дубль.
+
+  for (let i = 0; i < length; i++) { //формируем выходной массив
+    const randomElement = getRandomArrayElement(array); //взяли эллемент из копии
+    outputArray.push(randomElement);  // вставили его в выходной массив
+    array.splice(randomElement, 1); //удаляем элемент из коппии, чтобы на следующей итерации небыло возможности взять дубль.
   }
   return outputArray;
 }
+
+const offerTypes = ['palace', 'flat', 'house', 'bungalow'];
+const offerCheckins = ['12:00', '13:00', '14:00'];
+const offerCkouts = ['12:00', '13:00', '14:00'];
+const offerFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const offerPhotos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
 const createAuthor = function () {
   return {
@@ -45,23 +50,18 @@ const createLocation = function () {
 }
 
 const createOffer = function () {
-  const offerTypes = ['palace', 'flat', 'house', 'bungalow'];
-  const offerCheckins = ['12:00', '13:00', '14:00'];
-  const offerCkouts = ['12:00', '13:00', '14:00'];
-  const offerFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-
   return {
     title: 'Заголовок предложения',
     address: createLocation().x + ', ' + createLocation().y,
     price: getRandomInt(1, 10000),
-    type: offerTypes[getRandomInt(0, offerTypes.length - 1)],
+    type: getRandomArrayElement(offerTypes),
     rooms: getRandomInt(1, 4),
     guests: getRandomInt(1, 8),
-    checkin: offerCheckins[getRandomInt(0, offerCheckins.length - 1)],
-    checkout: offerCkouts[getRandomInt(0, offerCkouts.length - 1)],
+    checkin: getRandomArrayElement(offerCheckins),
+    checkout: getRandomArrayElement(offerCkouts),
     features: getArrayRandomLength(offerFeatures),
     description: 'Описание помещения',
-    photos: ''
+    photos: getArrayRandomLength(offerPhotos)
   }
 }
 
@@ -71,4 +71,6 @@ const createAd = function () {
 
 const ADS_COUNT = 10;
 const arrayAds = new Array(ADS_COUNT).fill(null).map(() => createAd());
+
 console.log(arrayAds);
+
