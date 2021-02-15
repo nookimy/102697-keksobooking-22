@@ -1,24 +1,24 @@
 'use strict';
 
-const getRandomInt = function (min, max) {
+const getRandomInt = (min, max) => {
   if (min < 0 || max < min) {
     return undefined;
   }
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-const getRandomFloat = function (min, max, decimal = 2) {
+const getRandomFloat = (min, max, decimal = 2) => {
   if (min < 0 || max < min) {
     return undefined;
   }
   return ((Math.random() * (max - min) + min).toFixed(decimal));
 };
 
-const getRandomArrayElement = function (array) {
+const getRandomArrayElement = (array) => {
   return array[getRandomInt(0, array.length - 1)];
 };
 
-const getArrayRandomLength = function (inputArray) {
+const getArrayRandomLength = (inputArray)  => {
   const length = getRandomInt(0, inputArray.length); //длина выходного массива
   const copyArray = inputArray.slice(0); //копия массива из которой будем убирать уже использованные элементы
   const outputArray = []; //выходной массив
@@ -39,7 +39,7 @@ const offerCkouts = ['12:00', '13:00', '14:00'];
 const offerFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const offerPhotos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
-const createAd = function () {
+const createAd = () => {
   const coorX = getRandomFloat(35.65000, 35.70000, 5);
   const coorY = getRandomFloat(139.70000, 139.80000, 5);
 
