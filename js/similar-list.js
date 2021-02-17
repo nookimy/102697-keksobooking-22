@@ -1,27 +1,70 @@
 import {createAds} from './data.js';
 
-const similarListElement = document.querySelector('.map__canvas'); // контейнер для списка похожих объявлений
-const similarAdTemplate = document.querySelector('#card').content.querySelector('.popup'); // шаблон объявления
+const propertyTypes = {
+  palace: 'Дворец',
+  flat: 'Квартира',
+  house: 'Дом',
+  bungalow: 'Бунгало',
+};
 
-const similarAds = createAds(); // импортируем модуль для генерации данных для получения похожих объявлений
 
-similarAds.forEach((ad) => { // для каждого объявления создаем полную копию шаблона и помещаем в конец контейнера
-  const adElement = similarAdTemplate.cloneNode(true);
-  adElement.querySelector('.popup__avatar').textContent = ad.author.avatar;
-  adElement.querySelector('.popup__title').textContent = ad.offer.title;
+const blockListElement = document.querySelector('.map__canvas'); // контейнер для похожих объявлений
+const cardTemplate = document.querySelector('#card').content.querySelector('.popup'); //шаблон карточки объявления
 
-  similarListElement.appendChild(adElement);
-});
+//отрисовка карточки объявления
+const renderCard = (card) => {
+  const cardElement = cardTemplate.cloneNode(true); // создаем полную копию шаблона объявления
+
+  const photosList = popupElement.querySelector('.popup__photos'); // список фото
+
+  // список с удобствами
+  const renderFeaturesList = () => { //
+    featuresList.textContent = ''; // очищаем от контента блок списка удобств
+    card.offer.features.forEach((item, i) => {
+      let feature = document.createElement('li');
+      feature.classList.add('popup__feature', `popup__feature--${popup.offer.features[i]}`);
+      featuresList.append(feature);
+    });
+  };
+
+  const renderPhotosList = () => {
+    photosList.textContent = '';
+    popup.offer.photos.forEach((item, i) => {
+      let photo = document.createElement('img');
+      photo.src = popup.offer.photos[i];
+      photo.classList.add('popup__photo');
+      photo.style.width = `${PhotosPreviewsSizes.WIDTH}px`;
+      photo.style.height = `${PhotosPreviewsSizes.HEIGHT}px`;
+      photo.alt = 'Фотография жилья';
+      photosList.appendChild(photo);
+    });
+  };
+
+
+  cardElement.querySelector('.popup__title').textContent = card.offer.title;
+  cardElement.querySelector('.popup__text--address').textContent = card.offer.address;
+  cardElement.querySelector('.popup__text--price').textContent = `${card.offer.price} ₽/ночь`;
+  cardElement.querySelector('.popup__type').textContent = propertyTypes[card.offer.type];
+  cardElement.querySelector('.popup__text--capacity').textContent = `${card.offer.rooms} комнаты для ${card.offer.guests} гостей`;
+  cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${card.offer.checkin}, выезд до ${card.offer.checkout}`;
+
+  // cardElement.querySelector('.popup__features').textContent = 'надо подумать';
+  const featuresList = popupElement.querySelector('.popup__features'); // список удобств
+  featuresList.textContent = ''; // очищаем от контента блок списка удобств
+
+  cardElement.querySelector('.popup__description').textContent = card.offer.description;
+  // cardElement.querySelector('.popup__photos').textContent = 'надо подумать';
+  cardElement.querySelector('.popup__avatar').src = card.author.avatar;
+
+  return cardElement;
+};
+
+blockListElement.appendChild(renderCard(createAds()[0]));
 
 
 {/* <article class="popup">
-  <img src="img/avatars/user01.png" class="popup__avatar" width="70" height="70" alt="Аватар пользователя">
-  <h3 class="popup__title">Уютное гнездышко для молодоженов</h3>
-  <p class="popup__text popup__text--address">102-0082 Tōkyō-to, Chiyoda-ku, Ichibanchō, 14−3</p>
-  <p class="popup__text popup__text--price">5200 <span>₽/ночь</span></p>
-  <h4 class="popup__type">Квартира</h4>
-  <p class="popup__text popup__text--capacity">2 комнаты для 3 гостей</p>
-  <p class="popup__text popup__text--time">Заезд после 14:00, выезд до 10:00</p>
+
+
   <ul class="popup__features">
     <li class="popup__feature popup__feature--wifi"></li>
     <li class="popup__feature popup__feature--dishwasher"></li>
@@ -30,7 +73,7 @@ similarAds.forEach((ad) => { // для каждого объявления со�
     <li class="popup__feature popup__feature--elevator"></li>
     <li class="popup__feature popup__feature--conditioner"></li>
   </ul>
-  <p class="popup__description">Великолепная квартира-студия в центре Токио. Подходит как туристам, так и бизнесменам. Квартира полностью укомплектована и недавно отремонтирована.</p>
+
   <div class="popup__photos">
     <img src="" class="popup__photo" width="45" height="40" alt="Фотография жилья">
   </div>
