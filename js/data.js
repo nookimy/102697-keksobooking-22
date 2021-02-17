@@ -34,7 +34,7 @@ const createAd = () => {
   }
 };
 
-const ADS_COUNT = 10;
-const arrayAds = new Array(ADS_COUNT).fill(null).map(() => createAd());
+const SIMILAR_ADS_COUNT = 10;
+const createAds = () => new Array(SIMILAR_ADS_COUNT).fill(null).map(() => createAd());
 
-arrayAds;
+export {createAds};
