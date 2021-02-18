@@ -68,7 +68,7 @@ const renderCard = (card) => {
     renderFeaturesList();
   } else {
     featuresList.remove();
-  };
+  }
 
   cardElement.querySelector('.popup__description').textContent = card.offer.description;
 
@@ -76,7 +76,7 @@ const renderCard = (card) => {
     renderPhotosList(45, 40);
   } else {
     photosList.remove();
-  };
+  }
 
   renderAvatar(card.author.avatar, 70, 70);
 
