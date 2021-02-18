@@ -1,10 +1,5 @@
 import {createAds} from './data.js';
 
-const PhotoSizes = {
-  WIDTH: 45,
-  HEIGHT: 40,
-};
-
 const propertyTypes = {
   palace: 'Дворец',
   flat: 'Квартира',
@@ -89,5 +84,3 @@ const renderCard = (card) => {
 };
 
 blockListElement.appendChild(renderCard(createAds()[0]));
-
-console.log(createAds()[0]);
