@@ -1,7 +1,6 @@
 const adForm = document.querySelector('.ad-form'); // форма объявления
 const adFormElement = document.querySelectorAll('fieldset'); // все элементы формы объявлений
 
-
 // неактивное состояние формы
 const inactiveForm = () => {
   adForm.classList.add('ad-form--disabled');
@@ -11,10 +10,10 @@ const inactiveForm = () => {
 };
 
 // активное состояние формы
-const inactiveForm = () => {
-  adForm.classList.add('ad-form--disabled');
+const activeForm = () => {
+  adForm.classList.remove('ad-form--disabled');
   adFormElement.forEach((formElement) => {
-    formElement.disabled = true;
+    formElement.disabled = false;
   });
 };
 
@@ -47,5 +46,6 @@ elementsForm.checkout.addEventListener('change', () => {
   elementsForm.checkin.value = elementsForm.checkout.value;
 });
 
-inactiveFilter();
 inactiveForm();
+
+export {elementsForm, activeForm}
