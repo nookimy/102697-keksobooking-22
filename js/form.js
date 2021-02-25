@@ -23,6 +23,7 @@ const elementsForm = {
   price: adForm.querySelector('#price'),
   checkin: adForm.querySelector('#timein'),
   checkout: adForm.querySelector('#timeout'),
+  address: adForm.querySelector('#address'),
 };
 
 
