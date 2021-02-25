@@ -1,3 +1,5 @@
+/* global L:readonly */
+
 import {elementsForm, activeForm} from './form.js';
 import {activeFilter} from './filter.js';
 import {createAds} from './data.js';
@@ -12,7 +14,7 @@ const map = L.map('map-canvas')
   .on('load', () => { // Инициализация карты
     activeForm();
     activeFilter();
-    })
+  })
   .setView({
     lat: mapCenter.lat,
     lng: mapCenter.lng,
