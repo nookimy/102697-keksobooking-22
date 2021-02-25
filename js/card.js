@@ -83,4 +83,4 @@ const renderCard = (card) => {
   return cardElement;
 };
 
-blockListElement.appendChild(renderCard(createAds()[0]));
+// blockListElement.appendChild(renderCard(createAds()[0]));
