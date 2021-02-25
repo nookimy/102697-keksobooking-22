@@ -46,14 +46,17 @@ const mainPinMarker = L.marker(
 // добавляем маркер на карту
 mainPinMarker.addTo(map);
 
-// пользователь закончил передвигать маркер
+// пользователь передвигает маркер
 mainPinMarker.on('move', (evt) => {
-  // всё сложно...
+  elementsForm.address.value = `
+  ${evt.target.getLatLng().lat.toFixed(5)},
+  ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
 // массив точек на карте
 
 const points = createAds();
+
 
 // по циклу насоздаём маркеров и понадобавляем их на карту
 points.forEach((ads) => {
