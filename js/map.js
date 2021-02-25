@@ -9,10 +9,10 @@ const mapCenter = {
 }
 
 const map = L.map('map-canvas')
-.on('load', () => { // Инициализация карты
-  activeForm();
-  activeFilter();
-  })
+  .on('load', () => { // Инициализация карты
+    activeForm();
+    activeFilter();
+    })
   .setView({
     lat: mapCenter.lat,
     lng: mapCenter.lng,
