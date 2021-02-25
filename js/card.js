@@ -1,4 +1,4 @@
-import {createAds} from './data.js';
+// import {createAds} from './data.js';
 
 const propertyTypes = {
   palace: 'Дворец',
@@ -7,7 +7,7 @@ const propertyTypes = {
   bungalow: 'Бунгало',
 };
 
-const blockListElement = document.querySelector('.map__canvas'); // контейнер для похожих объявлений
+// const blockListElement = document.querySelector('.map__canvas'); // контейнер для похожих объявлений
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup'); //шаблон карточки объявления
 
 const renderCard = (card) => {
@@ -79,8 +79,9 @@ const renderCard = (card) => {
   }
 
   renderAvatar(card.author.avatar, 70, 70);
-
   return cardElement;
 };
 
 // blockListElement.appendChild(renderCard(createAds()[0]));
+
+export {renderCard};
