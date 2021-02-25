@@ -1,8 +1,6 @@
 const adForm = document.querySelector('.ad-form'); // форма объявления
-const adFormElement = adForm.querySelectorAll('fieldset');
-const mapFilters = document.querySelector('.map__filters'); // форма фильтрации объявлений
-const mapFilter = document.querySelectorAll('.map__filter'); //
-const mapFeatures = document.querySelector('.map__features'); //
+const adFormElement = document.querySelectorAll('fieldset'); // все элементы формы объявлений
+
 
 // неактивное состояние формы
 const inactiveForm = () => {
@@ -12,13 +10,12 @@ const inactiveForm = () => {
   });
 };
 
-//неактивное состояние фильтров
-const inactiveFilter = () => {
-  mapFilters.classList.add('map__filters--disabled');
-  mapFilter.forEach((filterElement) => {
-    filterElement.disabled = true;
+// активное состояние формы
+const inactiveForm = () => {
+  adForm.classList.add('ad-form--disabled');
+  adFormElement.forEach((formElement) => {
+    formElement.disabled = true;
   });
-  mapFeatures.disabled = true;
 };
 
 // поля для заполнения
