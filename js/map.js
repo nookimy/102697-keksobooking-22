@@ -1,6 +1,7 @@
 import {elementsForm, activeForm} from './form.js';
 import {activeFilter} from './filter.js';
 import {createAds} from './data.js';
+import {renderCard} from './card.js';
 
 const mapCenter = {
   lat: 35.6895000,
@@ -51,36 +52,19 @@ mainPinMarker.on('move', (evt) => {
 });
 
 // массив точек на карте
-const points = [
-  {
-    title: 'Футура',
-    lat: 59.96925,
-    lng: 30.31730,
-  },
-  {
-    title: 'Шаверма',
-    lat: 59.96783,
-    lng: 30.31258,
-  },
-  {
-    title: 'Франк',
-    lat: 59.95958,
-    lng: 30.30228,
-  },
-  {
-    title: 'Ginza',
-    lat: 59.97292,
-    lng: 30.31982,
-  },
-];
+
+const points = createAds();
 
 // по циклу насоздаём маркеров и понадобавляем их на карту
-points.forEach(({lat, lng, title}) => {
+points.forEach((ads) => {
   const icon = L.icon({
-    iconUrl: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
+    iconUrl: '../img/pin.svg',
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   });
+
+  const lat = ads.location.x;
+  const lng = ads.location.y;
 
   const marker = L.marker(
     {
@@ -94,5 +78,10 @@ points.forEach(({lat, lng, title}) => {
 
   marker
     .addTo(map)
-    .bindPopup(title);
+    .bindPopup(
+      renderCard(ads),
+      {
+        keepInView: true,
+      },
+    );
 });
