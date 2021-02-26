@@ -1,4 +1,21 @@
-const adForm = document.querySelector('.ad-form');
+const adForm = document.querySelector('.ad-form'); // форма объявления
+const adFormElement = document.querySelectorAll('fieldset'); // все элементы формы объявлений
+
+// неактивное состояние формы
+const inactiveForm = () => {
+  adForm.classList.add('ad-form--disabled');
+  adFormElement.forEach((formElement) => {
+    formElement.disabled = true;
+  });
+};
+
+// активное состояние формы
+const activeForm = () => {
+  adForm.classList.remove('ad-form--disabled');
+  adFormElement.forEach((formElement) => {
+    formElement.disabled = false;
+  });
+};
 
 // поля для заполнения
 const elementsForm = {
@@ -6,7 +23,8 @@ const elementsForm = {
   price: adForm.querySelector('#price'),
   checkin: adForm.querySelector('#timein'),
   checkout: adForm.querySelector('#timeout'),
-}
+  address: adForm.querySelector('#address'),
+};
 
 
 const minPrices = {
@@ -14,7 +32,7 @@ const minPrices = {
   flat: 1000,
   house: 5000,
   palace: 10000,
-}
+};
 
 elementsForm.type.addEventListener('change', () => {
   elementsForm.price.placeholder = minPrices[elementsForm.type.value];
@@ -28,3 +46,7 @@ elementsForm.checkin.addEventListener('change', () => {
 elementsForm.checkout.addEventListener('change', () => {
   elementsForm.checkin.value = elementsForm.checkout.value;
 });
+
+inactiveForm();
+
+export {elementsForm, activeForm}
