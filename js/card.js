@@ -84,4 +84,4 @@ const renderCard = (card) => {
 
 // blockListElement.appendChild(renderCard(createAds()[0]));
 
-export {renderCard};
+export {renderCard, propertyTypes};
