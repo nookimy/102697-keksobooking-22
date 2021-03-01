@@ -18,7 +18,7 @@ const map = L.map('map-canvas')
   .setView({
     lat: mapCenter.lat,
     lng: mapCenter.lng,
-  }, 10);
+  }, 12);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -28,7 +28,7 @@ L.tileLayer(
 ).addTo(map);
 
 const mainPinIcon = L.icon({
-  iconUrl: '../img/main-pin.svg',
+  iconUrl: './img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
@@ -63,7 +63,7 @@ const points = createAds();
 // по циклу насоздаём маркеров и понадобавляем их на карту
 points.forEach((ads) => {
   const icon = L.icon({
-    iconUrl: '../img/pin.svg',
+    iconUrl: './img/pin.svg,
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   });
