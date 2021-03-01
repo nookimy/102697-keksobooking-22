@@ -63,7 +63,7 @@ const points = createAds();
 // по циклу насоздаём маркеров и понадобавляем их на карту
 points.forEach((ads) => {
   const icon = L.icon({
-    iconUrl: './img/pin.svg,
+    iconUrl: './img/pin.svg',
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   });
