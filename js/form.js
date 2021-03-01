@@ -19,6 +19,7 @@ const activeForm = () => {
 
 // поля для заполнения
 const elementsForm = {
+  title: adForm.querySelector('#title'),
   type: adForm.querySelector('#type'),
   price: adForm.querySelector('#price'),
   checkin: adForm.querySelector('#timein'),
@@ -26,6 +27,22 @@ const elementsForm = {
   address: adForm.querySelector('#address'),
 };
 
+// Валидация заголовка
+const minTitleLenght = 30;
+const maxTitleLenght = 100;
+
+elementsForm.title.addEventListener('input', () => {
+  const titleLength = elementsForm.title.value.length;
+  if (titleLength < minTitleLenght) {
+    elementsForm.title.setCustomValidity('Ещё ' + (minTitleLenght - titleLength) +' симв.');
+  } else if (titleLength > maxTitleLenght) {
+    elementsForm.title.setCustomValidity('Удалите лишние ' + (maxTitleLenght - titleLength) +' симв.');
+  } else {
+    elementsForm.title.setCustomValidity('');
+  }
+
+  elementsForm.title.reportValidity();
+});
 
 const minPrices = {
   bungalow: 0,
@@ -34,6 +51,16 @@ const minPrices = {
   palace: 10000,
 };
 
+// Валидация цены
+elementsForm.price.min = minPrices[elementsForm.type.value];
+elementsForm.price.setAttribute('min', elementsForm.price.min);
+elementsForm.price.setAttribute('max', 1000000);
+
+elementsForm.price.addEventListener('input', () => {
+  elementsForm.price.reportValidity();
+});
+
+// Тип жилья
 elementsForm.type.addEventListener('change', () => {
   elementsForm.price.placeholder = minPrices[elementsForm.type.value];
   elementsForm.price.min = minPrices[elementsForm.type.value];
@@ -48,5 +75,9 @@ elementsForm.checkout.addEventListener('change', () => {
 });
 
 inactiveForm();
+
+console.log(elementsForm.price.min);
+
+
 
 export {elementsForm, activeForm}
