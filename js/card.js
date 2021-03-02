@@ -1,5 +1,7 @@
 // import {createAds} from './data.js';
 
+const cardTemplate = document.querySelector('#card').content.querySelector('.popup'); //шаблон карточки объявления
+
 const propertyTypes = {
   palace: 'Дворец',
   flat: 'Квартира',
@@ -8,7 +10,7 @@ const propertyTypes = {
 };
 
 // const blockListElement = document.querySelector('.map__canvas'); // контейнер для похожих объявлений
-const cardTemplate = document.querySelector('#card').content.querySelector('.popup'); //шаблон карточки объявления
+
 
 const renderCard = (card) => {
   const cardElement = cardTemplate.cloneNode(true); // создаем полную копию шаблона объявления
