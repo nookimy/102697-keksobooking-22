@@ -1,6 +1,6 @@
 /* global L:readonly */
 
-import {elementsForm, activeForm} from './form.js';
+import {address, activeForm} from './form.js';
 import {activeFilter} from './filter.js';
 import {createAds} from './data.js';
 import {renderCard} from './card.js';
@@ -14,6 +14,7 @@ const map = L.map('map-canvas')
   .on('load', () => { // Инициализация карты
     activeForm();
     activeFilter();
+    address.value = `${mapCenter.lat}, ${mapCenter.lng}`;
   })
   .setView({
     lat: mapCenter.lat,
@@ -50,7 +51,7 @@ mainPinMarker.addTo(map);
 
 // пользователь передвигает маркер
 mainPinMarker.on('move', (evt) => {
-  elementsForm.address.value = `
+  address.value = `
   ${evt.target.getLatLng().lat.toFixed(5)},
   ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
