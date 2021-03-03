@@ -1,6 +1,6 @@
 /* global L:readonly */
 
-import {elementsForm, activeForm} from './form.js';
+import {address, activeForm} from './form.js';
 import {activeFilter} from './filter.js';
 import {createAds} from './data.js';
 import {renderCard} from './card.js';
@@ -14,11 +14,12 @@ const map = L.map('map-canvas')
   .on('load', () => { // Инициализация карты
     activeForm();
     activeFilter();
+    address.value = `${mapCenter.lat}, ${mapCenter.lng}`;
   })
   .setView({
     lat: mapCenter.lat,
     lng: mapCenter.lng,
-  }, 10);
+  }, 12);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -28,7 +29,7 @@ L.tileLayer(
 ).addTo(map);
 
 const mainPinIcon = L.icon({
-  iconUrl: '../img/main-pin.svg',
+  iconUrl: './img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
@@ -50,7 +51,7 @@ mainPinMarker.addTo(map);
 
 // пользователь передвигает маркер
 mainPinMarker.on('move', (evt) => {
-  elementsForm.address.value = `
+  address.value = `
   ${evt.target.getLatLng().lat.toFixed(5)},
   ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
@@ -63,7 +64,7 @@ const points = createAds();
 // по циклу насоздаём маркеров и понадобавляем их на карту
 points.forEach((ads) => {
   const icon = L.icon({
-    iconUrl: '../img/pin.svg',
+    iconUrl: './img/pin.svg',
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   });

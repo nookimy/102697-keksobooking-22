@@ -5,6 +5,7 @@ const offerCheckins = ['12:00', '13:00', '14:00'];
 const offerCkouts = ['12:00', '13:00', '14:00'];
 const offerFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const offerPhotos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+const similarAdsCount = 10;
 
 const createAd = () => {
   const coorX = getRandomFloat(35.65000, 35.70000, 5);
@@ -34,7 +35,7 @@ const createAd = () => {
   }
 };
 
-const SIMILAR_ADS_COUNT = 10;
-const createAds = () => new Array(SIMILAR_ADS_COUNT).fill(null).map(() => createAd());
+
+const createAds = () => new Array(similarAdsCount).fill(null).map(() => createAd());
 
 export {createAds};
