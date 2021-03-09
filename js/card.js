@@ -1,5 +1,3 @@
-// import {createAds} from './data.js';
-
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup'); //шаблон карточки объявления
 
 const propertyTypes = {
@@ -9,9 +7,10 @@ const propertyTypes = {
   bungalow: 'Бунгало',
 };
 
+// Блок для отрисовки карточки
 // const blockListElement = document.querySelector('.map__canvas'); // контейнер для похожих объявлений
 
-
+// Отрисовка карточки объявления
 const renderCard = (card) => {
   const cardElement = cardTemplate.cloneNode(true); // создаем полную копию шаблона объявления
   const featuresList = cardElement.querySelector('.popup__features');
@@ -86,4 +85,4 @@ const renderCard = (card) => {
 
 // blockListElement.appendChild(renderCard(createAds()[0]));
 
-export {renderCard, propertyTypes};
+export {renderCard};
