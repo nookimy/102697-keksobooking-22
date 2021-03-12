@@ -1,39 +1,55 @@
-const successTemplate = document.querySelector('#success').content.querySelector('.success'); // Шаблон Сообщение об успешном создании объявления
-const successModal = successTemplate.cloneNode(true);
-document.querySelector('main').append(successModal);
+
+
+const successModal = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
+const errorModal = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+const tryAgainButton = errorModal.querySelector('.error__button');
 successModal.classList.add('hidden');
-
-const errorTemplate = document.querySelector('#error').content.querySelector('.error'); // Шаблон Сообщение об ошибке создания объявления
-const errorModal = errorTemplate.cloneNode(true);
-document.querySelector('main').append(errorModal);
 errorModal.classList.add('hidden');
+document.body.append(successModal);
+document.body.append(errorModal);
 
-const hideModal = (modal) => {
+const isEscEvent = (evt) => {
+  return evt.key === 'Escape' || evt.key === 'Esc';
+};
+
+const closeModal = (modal) => {
   modal.classList.add('hidden');
+  modal.removeEventListener('keydown', onPopupEscKeydown(modal));
+  modal.removeEventListener('click', onClick(modal));
+}
 
-  modal.removeEventListener('click', () => {
-    hideModal(modal);
-  });
-
-  window.removeEventListener('keydown', (evt) => {
-    if (evt.key === 'Esc' || evt.key === 'Escape') {
-      hideModal(modal);
+const onPopupEscKeydown = (modal) => {
+  return (evt) => {
+    if (isEscEvent(evt)) {
+      evt.preventDefault();
+      closeModal(modal);
     }
-  });
+    if (modal === errorModal) {
+      tryAgainButton.removeEventListener('click', onClick(errorModal));
+    }
+  }
 };
 
-const showModal = (modal) => {
-  modal.classList.remove('hidden');
+const onClick = (modal) => {
+  return (evt) => {
+    evt.preventDefault();
+    closeModal(modal);
+  }
+}
 
-  modal.addEventListener('click', () => {
-    hideModal(modal);
-  });
+const showSuccessModal = () => {
+  successModal.classList.remove('hidden');
+  successModal.style.zIndex = '10000';
+  successModal.addEventListener('keydown', onPopupEscKeydown(successModal));
+  successModal.addEventListener('click', onClick(successModal));
+}
 
-  window.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Esc' || evt.key === 'Escape') {
-      hideModal(modal);
-    }
-  });
-};
+const showErrorModal = () => {
+  errorModal.classList.remove('hidden');
+  errorModal.style.zIndex = '10000';
+  errorModal.addEventListener('keydown', onPopupEscKeydown(errorModal));
+  errorModal.addEventListener('click', onClick(errorModal));
+  tryAgainButton.addEventListener('click', onClick(errorModal));
+}
 
-export {hideModal, showModal, successModal, errorModal}
+export { showSuccessModal, closeModal, showErrorModal };

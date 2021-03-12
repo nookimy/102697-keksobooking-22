@@ -1,15 +1,9 @@
+import { LOCATION_PRECISION, minPrices } from './data.js';
 import { sendData } from './data-api.js';
-
-// Минимальная цена для разных типов жилья
-const minPrices = {
-  bungalow: 0,
-  flat: 1000,
-  house: 5000,
-  palace: 10000,
-};
 
 const titleLenghtMin = 30;
 const titleLenghtMax = 100;
+const POST_URL = 'https://22.javascript.pages.academy/keksobooking';
 
 const adForm = document.querySelector('.ad-form');
 const adFormElement = document.querySelectorAll('fieldset');
@@ -59,8 +53,8 @@ const onTitleInput = () => {
 }
 
 const fillAddress = (lat, long) => {
-  const latitude = lat.toFixed(5);
-  const longitude = long.toFixed(5);
+  const latitude = lat.toFixed(LOCATION_PRECISION);
+  const longitude = long.toFixed(LOCATION_PRECISION);
   address.value = `${latitude} ${longitude}`;
 }
 
@@ -135,7 +129,7 @@ const onResetAdForm = () => {
   onCheckOutChange();
 }
 
-const adFormSubmit = (onSuccess, onError) => {
+const advertisementFormSubmit = (onSuccess, onError) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
@@ -148,12 +142,11 @@ const adFormSubmit = (onSuccess, onError) => {
   });
 };
 
-inactiveAdForm();
-
 export {
+  inactiveAdForm,
   activeAdForm,
-  address,
-  adFormSubmit,
+  fillAddress,
+  advertisementFormSubmit,
   adFormResetButton,
   onResetAdForm,
   adForm
