@@ -1,39 +1,46 @@
-const form = document.querySelector('.ad-form');
-const formElement = document.querySelectorAll('fieldset');
-const address = form.querySelector('#address');
-const title = form.querySelector('#title');
-const type = form.querySelector('#type');
-const price = form.querySelector('#price');
-const checkin = form.querySelector('#timein');
-const checkout = form.querySelector('#timeout');
-
-
-
-// неактивное состояние формы
-
-const inactiveForm = () => {
-  form.classList.add('ad-form--disabled');
-  formElement.forEach((formElement) => {
-    formElement.disabled = true;
-  });
-};
-
-// активное состояние формы
-
-const activeForm = () => {
-  form.classList.remove('ad-form--disabled');
-  formElement.forEach((formElement) => {
-    formElement.disabled = false;
-  });
-};
-
-//Заголовок
-
+import { locationDecimal, minPrices } from './data.js';
+import { sendData } from './data-api.js';
 
 const titleLenghtMin = 30;
 const titleLenghtMax = 100;
+const POST_URL = 'https://22.javascript.pages.academy/keksobooking';
 
-title.addEventListener('input', () => {
+const adForm = document.querySelector('.ad-form');
+const adFormElement = document.querySelectorAll('fieldset');
+
+const address = adForm.querySelector('#address');
+const title = adForm.querySelector('#title');
+const type = adForm.querySelector('#type');
+const price = adForm.querySelector('#price');
+const checkin = adForm.querySelector('#timein');
+const checkout = adForm.querySelector('#timeout');
+const roomNumber = adForm.querySelector('#room_number');
+const capacity = adForm.querySelector('#capacity');
+
+const adFormResetButton = adForm.querySelector('.ad-form__reset');
+
+
+// Неактивное состояние страницы
+const inactiveAdForm = () => {
+  adForm.classList.add('ad-form--disabled');
+
+  adFormElement.forEach((adFormElement) => {
+    adFormElement.disabled = true;
+  });
+}
+
+// Активное состояние страницы
+const activeAdForm = () => {
+  adForm.classList.remove('ad-form--disabled');
+
+  adFormElement.forEach((adFormElement) => {
+    adFormElement.disabled = false;
+  });
+}
+
+
+//Заголовок
+const onTitleInput = () => {
   const titleLength = title.value.length;
   if (titleLength < titleLenghtMin) {
     title.setCustomValidity('Ещё ' + (titleLenghtMin - titleLength) +' симв.');
@@ -43,93 +50,104 @@ title.addEventListener('input', () => {
     title.setCustomValidity('');
   }
   title.reportValidity();
-});
+}
 
-// Минимальная цена для разных типов жилья
-
-const minPrices = {
-  bungalow: 0,
-  flat: 1000,
-  house: 5000,
-  palace: 10000,
-};
+const fillAddress = (lat, long) => {
+  const latitude = lat.toFixed(locationDecimal);
+  const longitude = long.toFixed(locationDecimal);
+  address.value = `${latitude} ${longitude}`;
+}
 
 // Зависимость минимальной цены от типа жилья
-
 price.min = minPrices[type.value];
 price.setAttribute('min', price.min);
 price.setAttribute('max', 1000000);
 
-price.addEventListener('input', () => {
+const onPriceInput = () => {
   price.reportValidity();
-});
+}
 
-type.addEventListener('change', () => {
+// Тип жилья
+const onTypeChange = () => {
   price.placeholder = minPrices[type.value];
   price.min = minPrices[type.value];
-});
+}
 
 // Зависимость времени заезда и выезда
 
-checkin.addEventListener('change', () => {
+const onCheckInChange = () => {
   checkout.value = checkin.value;
-});
+}
 
-checkout.addEventListener('change', () => {
+const onCheckOutChange = () => {
   checkin.value = checkout.value;
-});
+}
 
 // Количество комнат и количество мест
-const roomNumber = form.querySelector('#room_number');
-const guestNumber = form.querySelector('#capacity');
-const noGuests = {
-  value: 100,
-  text: 'не для гостей',
-};
 
-const oneGuests = {
-  value: 1,
-  text: 'для 1 гостя',
-};
-
-const twoGuests = {
-  value: 2,
-  text: 'для 2 гостей',
-};
-
-const threeGuests = {
-  value: 3,
-  text: 'для 3 гостей',
-};
-
-const options = {
-  100: [noGuests],
-  1: [oneGuests],
-  2: [twoGuests, oneGuests],
-  3: [threeGuests, twoGuests, oneGuests],
-};
-
-const getOptions = function (guests) {
-  for (let i = 0; i < guests.length; i++) {
-    const option = document.createElement('option');
-    option.value = guests[i].value;
-    option.innerHTML = guests[i].text;
-    guestNumber.appendChild(option);
-  }
+const roomValues = {
+  1: [1],
+  2: [1, 2],
+  3: [1, 2, 3],
+  100: [0],
 };
 
 // Зависимость количества комнат от количества мест
-roomNumber.addEventListener('change', function () {
-  const roomNumberValue = roomNumber.value;
-  guestNumber.value = (roomNumberValue === '100') ? '0' : roomNumberValue;
 
-  while (guestNumber.firstChild) {
-    guestNumber.removeChild(guestNumber.firstChild);
-  }
+const onRoomsNumber = () => {
+  const seatingCapacityOptions = capacity.querySelectorAll('option');
+  const roomsNumber =  Number(roomNumber.value);
 
-  getOptions(options[roomNumberValue]);
-});
+  seatingCapacityOptions.forEach((option) => {
+    option.disabled = true;
+  });
 
-inactiveForm();
+  roomValues[roomsNumber].forEach((seatsAmount) => {
+    seatingCapacityOptions.forEach((option) => {
+      if (Number(option.value) === seatsAmount) {
+        option.disabled = false;
+      }
+    });
+    if (!roomValues[roomsNumber].includes(Number(capacity.value))) {
+      const maxCapacity = roomValues[roomsNumber][roomValues[roomsNumber].length - 1];
+      capacity.value = maxCapacity;
+    }
+  });
+};
 
-export {address, activeForm}
+type.addEventListener('change', onTypeChange);
+checkin.addEventListener('change', onCheckInChange);
+checkout.addEventListener('change', onCheckOutChange);
+title.addEventListener('input', onTitleInput);
+price.addEventListener('input', onPriceInput);
+roomNumber.addEventListener('change', onRoomsNumber);
+
+const onResetAdForm = () => {
+  onTypeChange();
+  onRoomsNumber();
+  onCheckInChange();
+  onCheckOutChange();
+}
+
+const advertisementFormSubmit = (onSuccess, onError) => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      POST_URL,
+      onSuccess,
+      onError,
+      new FormData(evt.target),
+    );
+  });
+};
+
+export {
+  inactiveAdForm,
+  activeAdForm,
+  fillAddress,
+  advertisementFormSubmit,
+  adFormResetButton,
+  onResetAdForm,
+  adForm
+};

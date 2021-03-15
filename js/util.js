@@ -31,4 +31,34 @@ const getArrayRandomLength = (inputArray)  => {
   return outputArray;
 };
 
-export {getRandomInt, getRandomFloat, getRandomArrayElement, getArrayRandomLength};
+const fileTypes = ['gif', 'jpg', 'jpeg', 'png'];
+const onFileUpload = (fileChooser, preview, fileTypes) => {
+  return (evt) => {
+    evt.preventDefault();
+    const file = fileChooser.files[0];
+    const fileName = file.name.toLowerCase();
+
+    const matches = fileTypes.some((it) => {
+      return fileName.endsWith(it);
+    });
+
+    if (matches) {
+      const reader = new FileReader();
+
+      reader.addEventListener('load', () => {
+        preview.src = reader.result;
+      });
+
+      reader.readAsDataURL(file);
+    }
+  }
+}
+
+export {
+  getRandomInt,
+  getRandomFloat,
+  getRandomArrayElement,
+  getArrayRandomLength,
+  onFileUpload,
+  fileTypes
+};
