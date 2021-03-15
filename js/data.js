@@ -73,7 +73,7 @@ const createAds = () => {
 
 createAds();
 
-console.log(createAds());
+// console.log(createAds());
 
 export {
   createAds,
