@@ -1,6 +1,6 @@
 import { removeMapMarkers, renderCards } from './map.js';
 
-const RERENDER_DELAY = 500;
+const renderDelay = 500;
 
 const mapFilters = document.querySelector('.map__filters'); // форма фильтрации объявлений
 const mapFilter = document.querySelectorAll('.map__filter'); // выпадающие списки в форме фильтрации
@@ -100,7 +100,7 @@ const onFilterChange = (advertisements) => {
     const filteredAdds = getFilteredAds(advertisements);
     removeMapMarkers();
     renderCards(filteredAdds);
-  }, RERENDER_DELAY);
+  }, renderDelay);
 }
 
 const setFilterChange = (advertisements) => {

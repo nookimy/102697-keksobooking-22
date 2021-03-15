@@ -1,4 +1,4 @@
-import { onFileUpload, FILE_TYPES } from './util.js';
+import { onFileUpload, fileTypes } from './util.js';
 
 const fileChooser = document.querySelector('.ad-form__upload input[type=file]');
 const upload = document.querySelector('.ad-form__photo');
@@ -13,7 +13,7 @@ const clearOutPhoto = () => {
   preview.src = '';
 }
 
-fileChooser.addEventListener('change', onFileUpload(fileChooser, preview, FILE_TYPES));
+fileChooser.addEventListener('change', onFileUpload(fileChooser, preview, fileTypes));
 
 
 export { clearOutPhoto };

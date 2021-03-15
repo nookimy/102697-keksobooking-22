@@ -1,4 +1,4 @@
-import {getOffers} from './data.js';
+import {createAds} from './data.js';
 
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
@@ -27,7 +27,7 @@ const getRoomsNumber = (rooms) => {
   return `${rooms} комнат`;
 }
 
-const createCardElement = (({author, offer}) => {
+const renderCard = (({author, offer}) => {
   const cardElement = cardTemplate.cloneNode(true);
 
   cardElement.querySelector('.popup__title').textContent = offer.title;
@@ -99,6 +99,6 @@ const createCardElement = (({author, offer}) => {
 
 // Блок для отрисовки карточки
 const blockListElement = document.querySelector('.map__canvas');
-blockListElement.appendChild(createCardElement(getOffers()[0]));
+blockListElement.appendChild(renderCard(createAds()[0]));
 
-export {createCardElement};
+export {renderCard};

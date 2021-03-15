@@ -1,5 +1,3 @@
-
-
 const successModal = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
 const errorModal = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
 const tryAgainButton = errorModal.querySelector('.error__button');

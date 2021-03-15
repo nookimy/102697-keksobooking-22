@@ -7,7 +7,7 @@ const minLatitude = 35.65000;
 const maxLatitude = 35.70000;
 const minLongtitude = 139.70000;
 const maxLongtitude = 139.80000;
-const LOCATION_PRECISION = 5;
+const locationDecimal = 5;
 const minPrice = 1;
 const maxPrice = 1000000;
 const offerTypes = ['palace', 'flat', 'house', 'bungalow'];
@@ -21,8 +21,8 @@ const maxGuestsNumber = 8;
 const offerDescription = 'Описание';
 const offerPhotos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
-const MIN_ADDS = 0;
-const ADDS_COUNT = 10;
+const minAdsCount = 0;
+const adsCount = 10;
 
 // Минимальная цена для разных типов жилья
 const minPrices = {
@@ -33,9 +33,9 @@ const minPrices = {
 };
 
 
-const getOffer = () => {
-  const coorX = getRandomFloat(minLatitude, maxLatitude, LOCATION_PRECISION);
-  const coorY = getRandomFloat(minLongtitude, maxLongtitude, LOCATION_PRECISION);
+const createAd = () => {
+  const coorX = getRandomFloat(minLatitude, maxLatitude, locationDecimal);
+  const coorY = getRandomFloat(minLongtitude, maxLongtitude, locationDecimal);
 
   const advertisement = {
     author: {
@@ -63,22 +63,22 @@ const getOffer = () => {
   return advertisement;
 }
 
-const getOffers = () => {
+const createAds = () => {
   const offers = [];
-  for (let i = 0; i < ADDS_COUNT; i++) {
-    offers.push(getOffer());
+  for (let i = 0; i < adsCount; i++) {
+    offers.push(createAd());
   }
   return offers;
 }
 
-getOffers();
+createAds();
 
-console.log(getOffers());
+console.log(createAds());
 
 export {
-  getOffers,
-  LOCATION_PRECISION,
+  createAds,
+  locationDecimal,
   minPrices,
-  MIN_ADDS,
-  ADDS_COUNT
+  minAdsCount,
+  adsCount
 };

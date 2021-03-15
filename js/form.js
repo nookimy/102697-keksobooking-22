@@ -1,4 +1,4 @@
-import { LOCATION_PRECISION, minPrices } from './data.js';
+import { locationDecimal, minPrices } from './data.js';
 import { sendData } from './data-api.js';
 
 const titleLenghtMin = 30;
@@ -53,8 +53,8 @@ const onTitleInput = () => {
 }
 
 const fillAddress = (lat, long) => {
-  const latitude = lat.toFixed(LOCATION_PRECISION);
-  const longitude = long.toFixed(LOCATION_PRECISION);
+  const latitude = lat.toFixed(locationDecimal);
+  const longitude = long.toFixed(locationDecimal);
   address.value = `${latitude} ${longitude}`;
 }
 

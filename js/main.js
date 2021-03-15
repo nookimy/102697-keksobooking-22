@@ -12,13 +12,13 @@ import {
   renderCards,
   resetMainPinMarker,
   setUpMap,
-  STARTING_LATITUDE,
-  STARTING_LONGITUDE
+  startLatitude,
+  startLongitude
 } from './map.js';
 
 import { getData } from './data-api.js';
 
-import { ADDS_COUNT, MIN_ADDS } from './data.js';
+import { adsCount, minAdsCount } from './data.js';
 
 import {
   adForm,
@@ -68,14 +68,14 @@ const setDefaults = () => {
   resetMainPinMarker();
   onResetAdForm();
   renderCards(advertisementsToRender);
-  fillAddress(STARTING_LATITUDE, STARTING_LONGITUDE);
+  fillAddress(startLatitude, startLongitude);
 }
 
 inactiveAdForm();
 inactiveFilter();
 
 getData(GET_URL, (advertisements) => {
-  advertisementsToRender = advertisements.slice(MIN_ADDS, ADDS_COUNT);
+  advertisementsToRender = advertisements.slice(minAdsCount, adsCount);
   setUpMap(advertisementsToRender);
   setFilterChange(advertisementsToRender);
   adFormResetButton.addEventListener('click', (evt) => {

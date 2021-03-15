@@ -31,7 +31,7 @@ const getArrayRandomLength = (inputArray)  => {
   return outputArray;
 };
 
-const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+const fileTypes = ['gif', 'jpg', 'jpeg', 'png'];
 const onFileUpload = (fileChooser, preview, fileTypes) => {
   return (evt) => {
     evt.preventDefault();
@@ -60,5 +60,5 @@ export {
   getRandomArrayElement,
   getArrayRandomLength,
   onFileUpload,
-  FILE_TYPES
+  fileTypes
 };
