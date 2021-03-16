@@ -1,13 +1,11 @@
-import { locationDecimal, minPrices } from './data.js';
+import { LOCATION_DECIMAL, MIN_PRICES } from './data.js';
 import { sendData } from './data-api.js';
 
-const titleLenghtMin = 30;
-const titleLenghtMax = 100;
+const TITLE_LENGHT_MIN = 30;
+const TITLE_LENGHT_MAX = 100;
 const POST_URL = 'https://22.javascript.pages.academy/keksobooking';
-
 const adForm = document.querySelector('.ad-form');
 const adFormElement = document.querySelectorAll('fieldset');
-
 const address = adForm.querySelector('#address');
 const title = adForm.querySelector('#title');
 const type = adForm.querySelector('#type');
@@ -16,11 +14,9 @@ const checkin = adForm.querySelector('#timein');
 const checkout = adForm.querySelector('#timeout');
 const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
-
 const adFormResetButton = adForm.querySelector('.ad-form__reset');
 
-
-// Неактивное состояние страницы
+// Неактивное состояние формы
 const inactiveAdForm = () => {
   adForm.classList.add('ad-form--disabled');
 
@@ -29,7 +25,7 @@ const inactiveAdForm = () => {
   });
 }
 
-// Активное состояние страницы
+// Активное состояние формы
 const activeAdForm = () => {
   adForm.classList.remove('ad-form--disabled');
 
@@ -38,14 +34,13 @@ const activeAdForm = () => {
   });
 }
 
-
 //Заголовок
 const onTitleInput = () => {
   const titleLength = title.value.length;
-  if (titleLength < titleLenghtMin) {
-    title.setCustomValidity('Ещё ' + (titleLenghtMin - titleLength) +' симв.');
-  } else if (titleLength > titleLenghtMax) {
-    title.setCustomValidity('Удалите лишние ' + (titleLenghtMax - titleLength) +' симв.');
+  if (titleLength < TITLE_LENGHT_MIN) {
+    title.setCustomValidity('Ещё ' + (TITLE_LENGHT_MIN - titleLength) +' симв.');
+  } else if (titleLength > TITLE_LENGHT_MAX) {
+    title.setCustomValidity('Удалите лишние ' + (TITLE_LENGHT_MAX - titleLength) +' симв.');
   } else {
     title.setCustomValidity('');
   }
@@ -53,13 +48,13 @@ const onTitleInput = () => {
 }
 
 const fillAddress = (lat, long) => {
-  const latitude = lat.toFixed(locationDecimal);
-  const longitude = long.toFixed(locationDecimal);
+  const latitude = lat.toFixed(LOCATION_DECIMAL);
+  const longitude = long.toFixed(LOCATION_DECIMAL);
   address.value = `${latitude} ${longitude}`;
 }
 
 // Зависимость минимальной цены от типа жилья
-price.min = minPrices[type.value];
+price.min = MIN_PRICES[type.value];
 price.setAttribute('min', price.min);
 price.setAttribute('max', 1000000);
 
@@ -69,12 +64,11 @@ const onPriceInput = () => {
 
 // Тип жилья
 const onTypeChange = () => {
-  price.placeholder = minPrices[type.value];
-  price.min = minPrices[type.value];
+  price.placeholder = MIN_PRICES[type.value];
+  price.min = MIN_PRICES[type.value];
 }
 
 // Зависимость времени заезда и выезда
-
 const onCheckInChange = () => {
   checkout.value = checkin.value;
 }
@@ -84,7 +78,6 @@ const onCheckOutChange = () => {
 }
 
 // Количество комнат и количество мест
-
 const roomValues = {
   1: [1],
   2: [1, 2],
@@ -93,7 +86,6 @@ const roomValues = {
 };
 
 // Зависимость количества комнат от количества мест
-
 const onRoomsNumber = () => {
   const seatingCapacityOptions = capacity.querySelectorAll('option');
   const roomsNumber =  Number(roomNumber.value);
@@ -132,7 +124,6 @@ const onResetAdForm = () => {
 const advertisementFormSubmit = (onSuccess, onError) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-
     sendData(
       POST_URL,
       onSuccess,

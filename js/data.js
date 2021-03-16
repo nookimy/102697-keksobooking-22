@@ -1,58 +1,53 @@
 import {getRandomInt, getRandomFloat, getRandomArrayElement, getArrayRandomLength} from './util.js';
 
-const minAvatarNumber = 1;
-const maxAvatarNumber = 8;
-const offerTitle = 'Заголовок';
-const minLatitude = 35.65000;
-const maxLatitude = 35.70000;
-const minLongtitude = 139.70000;
-const maxLongtitude = 139.80000;
-const locationDecimal = 5;
-const minPrice = 1;
-const maxPrice = 1000000;
-const offerTypes = ['palace', 'flat', 'house', 'bungalow'];
-const offerCheckins = ['12:00', '13:00', '14:00'];
-const offerCkouts = ['12:00', '13:00', '14:00'];
-const offerFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const minRoomsNumber = 1;
-const maxRoomsNumber = 4;
-const minGuestsNumber = 1;
-const maxGuestsNumber = 8;
-const offerDescription = 'Описание';
-const offerPhotos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+const MIN_AVATAR_NUMBER = 1;
+const MAX_AVATAR_NUMBER = 8;
+const MIN_LATITUDE = 35.65000;
+const MAX_LATITUDE = 35.70000;
+const MIN_LONGITUDE = 139.70000;
+const MAX_LONGITUDE = 139.80000;
+const LOCATION_DECIMAL = 5;
+const MIN_PRICE = 1;
+const MAX_PRICE = 1000000;
+const MIN_ROOMS_NUMBER = 1;
+const MAX_ROOMS_NUMBER = 4;
+const MIN_GUESTS_NUMBER = 1;
+const MAX_GUESTS_NUMBER = 8;
+const MIN_ADS_COUNT = 0;
+const MAX_ADS_COUNT = 10;
 
-const minAdsCount = 0;
-const adsCount = 10;
-
-// Минимальная цена для разных типов жилья
-const minPrices = {
+const OFFER_TYPES = ['palace', 'flat', 'house', 'bungalow'];
+const OFFER_CHECKINS = ['12:00', '13:00', '14:00'];
+const OFFER_CHECKOUTS = ['12:00', '13:00', '14:00'];
+const OFFER_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const OFFER_PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+const MIN_PRICES = {
   bungalow: 0,
   flat: 1000,
   house: 5000,
   palace: 10000,
 };
 
-
 const createAd = () => {
-  const coorX = getRandomFloat(minLatitude, maxLatitude, locationDecimal);
-  const coorY = getRandomFloat(minLongtitude, maxLongtitude, locationDecimal);
+  const coorX = getRandomFloat(MIN_LATITUDE, MAX_LATITUDE, LOCATION_DECIMAL);
+  const coorY = getRandomFloat(MIN_LONGITUDE, MAX_LONGITUDE, LOCATION_DECIMAL);
 
   const advertisement = {
     author: {
-      avatar: 'img/avatars/user0' + getRandomInt(minAvatarNumber, maxAvatarNumber) + '.png',
+      avatar: 'img/avatars/user0' + getRandomInt(MIN_AVATAR_NUMBER, MAX_AVATAR_NUMBER) + '.png',
     },
     offer: {
-      title: offerTitle,
+      title: 'Заголовок',
       address: coorX + ', ' + coorY,
-      price: getRandomInt(minPrice, maxPrice),
-      type: getRandomArrayElement(offerTypes),
-      rooms: getRandomInt(minRoomsNumber, maxRoomsNumber),
-      guests: getRandomInt(minGuestsNumber, maxGuestsNumber),
-      checkin: getRandomArrayElement(offerCheckins),
-      checkout: getRandomArrayElement(offerCkouts),
-      features: getArrayRandomLength(offerFeatures),
-      description: offerDescription,
-      photos: getArrayRandomLength(offerPhotos),
+      price: getRandomInt(MIN_PRICE, MAX_PRICE),
+      type: getRandomArrayElement(OFFER_TYPES),
+      rooms: getRandomInt(MIN_ROOMS_NUMBER, MAX_ROOMS_NUMBER),
+      guests: getRandomInt(MIN_GUESTS_NUMBER, MAX_GUESTS_NUMBER),
+      checkin: getRandomArrayElement(OFFER_CHECKINS),
+      checkout: getRandomArrayElement(OFFER_CHECKOUTS),
+      features: getArrayRandomLength(OFFER_FEATURES),
+      description: 'Описание',
+      photos: getArrayRandomLength(OFFER_PHOTOS),
     },
     location: {
       lat: coorX,
@@ -65,7 +60,7 @@ const createAd = () => {
 
 const createAds = () => {
   const offers = [];
-  for (let i = 0; i < adsCount; i++) {
+  for (let i = 0; i < MAX_ADS_COUNT; i++) {
     offers.push(createAd());
   }
   return offers;
@@ -77,8 +72,8 @@ createAds();
 
 export {
   createAds,
-  locationDecimal,
-  minPrices,
-  minAdsCount,
-  adsCount
+  LOCATION_DECIMAL,
+  MIN_PRICES,
+  MIN_ADS_COUNT,
+  MAX_ADS_COUNT
 };

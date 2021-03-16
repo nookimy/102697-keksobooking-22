@@ -31,14 +31,15 @@ const getArrayRandomLength = (inputArray)  => {
   return outputArray;
 };
 
-const fileTypes = ['gif', 'jpg', 'jpeg', 'png'];
-const onFileUpload = (fileChooser, preview, fileTypes) => {
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+
+const onFileUpload = (fileChooser, preview, FILE_TYPES) => {
   return (evt) => {
     evt.preventDefault();
     const file = fileChooser.files[0];
     const fileName = file.name.toLowerCase();
 
-    const matches = fileTypes.some((it) => {
+    const matches = FILE_TYPES.some((it) => {
       return fileName.endsWith(it);
     });
 
@@ -60,5 +61,5 @@ export {
   getRandomArrayElement,
   getArrayRandomLength,
   onFileUpload,
-  fileTypes
+  FILE_TYPES
 };
