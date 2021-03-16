@@ -1,13 +1,13 @@
-import {createAds} from './data.js';
+// import {createAds} from './data.js';
 
-const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-
-const propertyTypes = {
+const PROPERTY_TYPES = {
   palace: 'Дворец',
   flat: 'Квартира',
   house: 'Дом',
   bungalow: 'Бунгало',
 };
+
+const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 const getGuestsNumber = (guests) => {
   return (guests % 10 === 1 && guests !== 11) ? `${guests} гостя` : `${guests} гостей`;
@@ -32,7 +32,7 @@ const renderCard = (({author, offer}) => {
 
   cardElement.querySelector('.popup__title').textContent = offer.title;
   cardElement.querySelector('.popup__text--address').textContent = offer.address;
-  cardElement.querySelector('.popup__type').textContent = propertyTypes[offer.type];
+  cardElement.querySelector('.popup__type').textContent = PROPERTY_TYPES[offer.type];
   cardElement.querySelector('.popup__text--capacity').textContent = `${getRoomsNumber(offer.rooms)} для ${getGuestsNumber(offer.guests)}`;
   cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
   cardElement.querySelector('.popup__description').textContent = offer.description;
@@ -96,9 +96,8 @@ const renderCard = (({author, offer}) => {
   return cardElement;
 })
 
-
 // Блок для отрисовки карточки
-const blockListElement = document.querySelector('.map__canvas');
-blockListElement.appendChild(renderCard(createAds()[0]));
+// const blockListElement = document.querySelector('.map__canvas');
+// blockListElement.appendChild(renderCard(createAds()[0]));
 
 export {renderCard};

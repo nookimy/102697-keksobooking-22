@@ -4,11 +4,11 @@ import {activeAdForm, fillAddress, onResetAdForm} from './form.js';
 import {activeFilter} from './filter.js';
 import {renderCard} from './card.js';
 
-const startLatitude = 35.6804;
-const startLongitude = 139.7690;
-const mapZoom = 9;
-const mainPointerWidth = 52;
-const pointerWidth = 40;
+const START_LATITUDE = 35.6804;
+const START_LONGITUDE = 139.7690;
+const MAP_ZOOM = 9;
+const MAIN_POINT_WIDTH = 52;
+const POINT_WIDTH = 40;
 
 const map = L.map('map-canvas');
 const markers = [];
@@ -23,8 +23,8 @@ const renderCards = (advertisements) => {
   advertisements.forEach(({author, location, offer}) => {
     const icon = L.icon({
       iconUrl: 'img/pin.svg',
-      iconSize: [pointerWidth, pointerWidth],
-      iconAnchor: [pointerWidth / 2, pointerWidth],
+      iconSize: [POINT_WIDTH, POINT_WIDTH],
+      iconAnchor: [POINT_WIDTH / 2, POINT_WIDTH],
     });
     const lat = location.lat;
     const lng = location.lng;
@@ -60,14 +60,14 @@ const setUpMap = (advertisements) => {
   map
     .on('load', () => {
       activeAdForm();
-      fillAddress(startLatitude, startLongitude);
+      fillAddress(START_LATITUDE, START_LONGITUDE);
       onResetAdForm();
       activeFilter();
     })
     .setView({
-      lat: startLatitude,
-      lng: startLongitude,
-    }, mapZoom);
+      lat: START_LATITUDE,
+      lng: START_LONGITUDE,
+    }, MAP_ZOOM);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -82,14 +82,14 @@ const setUpMap = (advertisements) => {
 const initMainPinMarker = () => {
   const mainPinIcon = L.icon({
     iconUrl: 'img/main-pin.svg',
-    iconSize: [mainPointerWidth, mainPointerWidth],
-    iconAnchor: [mainPointerWidth / 2, mainPointerWidth],
+    iconSize: [MAIN_POINT_WIDTH, MAIN_POINT_WIDTH],
+    iconAnchor: [MAIN_POINT_WIDTH / 2, MAIN_POINT_WIDTH],
   });
 
   const mainPinMarker = L.marker(
     {
-      lat: startLatitude,
-      lng: startLongitude,
+      lat: START_LATITUDE,
+      lng: START_LONGITUDE,
     },
     {
       draggable: true,
@@ -105,14 +105,14 @@ mainPinMarker.addTo(map);
 mainPinMarker.on('move', onPinMove);
 
 const resetMainPinMarker = () => {
-  mainPinMarker.setLatLng(L.latLng(startLatitude, startLongitude));
+  mainPinMarker.setLatLng(L.latLng(START_LATITUDE, START_LONGITUDE));
 }
 
 export {
   setUpMap,
   resetMainPinMarker,
-  startLatitude,
-  startLongitude,
+  START_LATITUDE,
+  START_LONGITUDE,
   renderCards,
   removeMapMarkers
 };

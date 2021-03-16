@@ -1,11 +1,10 @@
 import { removeMapMarkers, renderCards } from './map.js';
 
-const renderDelay = 500;
+const RENDER_DELAY = 500;
 
 const mapFilters = document.querySelector('.map__filters'); // форма фильтрации объявлений
 const mapFilter = document.querySelectorAll('.map__filter'); // выпадающие списки в форме фильтрации
 const mapFeatures = document.querySelector('.map__features'); // выбор удобств в форме фильтрации
-
 const housingTypeSelect = mapFilters.querySelector('#housing-type');
 const housingPriceSelect = mapFilters.querySelector('#housing-price');
 const housingRoomsSelect = mapFilters.querySelector('#housing-rooms');
@@ -100,7 +99,7 @@ const onFilterChange = (advertisements) => {
     const filteredAdds = getFilteredAds(advertisements);
     removeMapMarkers();
     renderCards(filteredAdds);
-  }, renderDelay);
+  }, RENDER_DELAY);
 }
 
 const setFilterChange = (advertisements) => {
