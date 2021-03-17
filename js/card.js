@@ -1,5 +1,3 @@
-// import {createAds} from './data.js';
-
 const PROPERTY_TYPES = {
   palace: 'Дворец',
   flat: 'Квартира',
@@ -95,9 +93,5 @@ const renderCard = (({author, offer}) => {
 
   return cardElement;
 })
-
-// Блок для отрисовки карточки
-// const blockListElement = document.querySelector('.map__canvas');
-// blockListElement.appendChild(renderCard(createAds()[0]));
 
 export {renderCard};
