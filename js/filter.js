@@ -34,7 +34,7 @@ function debounce (fn, wait) {
     clearTimeout(t);
     t = setTimeout(() => fn.apply(this, arguments), wait);
   }
-}
+};
 
 const checkType = (advertisement, element) => {
   return element.value === 'any' || advertisement.offer.type === element.value;
@@ -55,30 +55,31 @@ const checkPrice = (advertisement, element) => {
     default:
       return false;
   }
-}
+};
 
 const checkRooms = (advertisement, element) => {
   return element.value === 'any' || Number(element.value) === advertisement.offer.rooms;
-}
+};
 
 const checkGuests = (advertisement, element) => {
   if (element.value === 'any') {
     return true;
   }
   return parseInt(element.value, 10) <= advertisement.offer.guests;
-}
+};
 
 const checkFeatures = (advertisement) => {
   const checkedFeatures = mapFilters.querySelectorAll('.map__checkbox:checked');
   let count = 0;
 
   checkedFeatures.forEach((feature) => {
-    if (advertisement.offer.features.includes(feature.value))
+    if (advertisement.offer.features.includes(feature.value)) {
       count++;
+    }      
   })
 
   return count === checkedFeatures.length;
-}
+};
 
 const getFilteredAds = (advertisements) => {
   const filteredAdvertisements = advertisements.filter((advertisement) => {
