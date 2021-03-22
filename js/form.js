@@ -1,8 +1,8 @@
 import { LOCATION_DECIMAL, MIN_PRICES } from './data.js';
 import { sendData } from './data-api.js';
 
-const TITLE_LENGHT_MIN = 30;
-const TITLE_LENGHT_MAX = 100;
+const TITLE_LENGTH_MIN = 30;
+const TITLE_LENGTH_MAX = 100;
 const POST_URL = 'https://22.javascript.pages.academy/keksobooking';
 const adForm = document.querySelector('.ad-form');
 const adFormElement = document.querySelectorAll('fieldset');
@@ -37,10 +37,10 @@ const activeAdForm = () => {
 //Заголовок
 const onTitleInput = () => {
   const titleLength = title.value.length;
-  if (titleLength < TITLE_LENGHT_MIN) {
-    title.setCustomValidity('Ещё ' + (TITLE_LENGHT_MIN - titleLength) +' симв.');
-  } else if (titleLength > TITLE_LENGHT_MAX) {
-    title.setCustomValidity('Удалите лишние ' + (TITLE_LENGHT_MAX - titleLength) +' симв.');
+  if (titleLength < TITLE_LENGTH_MIN) {
+    title.setCustomValidity('Ещё ' + (TITLE_LENGTH_MIN - titleLength) +' симв.');
+  } else if (titleLength > TITLE_LENGTH_MAX) {
+    title.setCustomValidity('Удалите лишние ' + (TITLE_LENGTH_MAX - titleLength) +' симв.');
   } else {
     title.setCustomValidity('');
   }
