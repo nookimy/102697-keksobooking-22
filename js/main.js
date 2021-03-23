@@ -23,14 +23,14 @@ import { MAX_ADS_COUNT, MIN_ADS_COUNT } from './data.js';
 import {
   adForm,
   adFormResetButton,
-  advertisementFormSubmit,
-  inactiveAdForm,
+  submitAdForm,
+  deactivateAdForm,
   fillAddress,
   onResetAdForm
 } from './form.js';
 
 import { showErrorModal, showSuccessModal } from './modal.js';
-import { inactiveFilter, mapFilters, setFilterChange } from './filter.js';
+import { deactivateFilter, mapFilters, setFilterChange } from './filter.js';
 import { clearOutAvatar } from './avatar.js';
 import { clearOutPhoto } from './photo.js';
 
@@ -71,8 +71,8 @@ const setDefaults = () => {
   fillAddress(START_LATITUDE, START_LONGITUDE);
 }
 
-inactiveAdForm();
-inactiveFilter();
+deactivateAdForm();
+deactivateFilter();
 
 getData(GET_URL, (advertisements) => {
   advertisementsToRender = advertisements.slice(MIN_ADS_COUNT, MAX_ADS_COUNT);
@@ -84,7 +84,7 @@ getData(GET_URL, (advertisements) => {
   });
 }, showAlert('Не удалось загрузить данные об объектах'))
 
-advertisementFormSubmit(() => {
+submitAdForm(() => {
   showSuccessModal();
   setDefaults();
 }, showErrorModal);

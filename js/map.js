@@ -1,7 +1,7 @@
 /* global L:readonly */
 
-import {activeAdForm, fillAddress, onResetAdForm} from './form.js';
-import {activeFilter} from './filter.js';
+import {activateAdForm, fillAddress, onResetAdForm} from './form.js';
+import {activateFilter} from './filter.js';
 import {renderCard} from './card.js';
 
 const START_LATITUDE = 35.6804;
@@ -59,10 +59,10 @@ const removeMapMarkers = () => {
 const setUpMap = (advertisements) => {
   map
     .on('load', () => {
-      activeAdForm();
+      activateAdForm();
       fillAddress(START_LATITUDE, START_LONGITUDE);
       onResetAdForm();
-      activeFilter();
+      activateFilter();
     })
     .setView({
       lat: START_LATITUDE,

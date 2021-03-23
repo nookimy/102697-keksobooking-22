@@ -17,7 +17,7 @@ const capacity = adForm.querySelector('#capacity');
 const adFormResetButton = adForm.querySelector('.ad-form__reset');
 
 // Неактивное состояние формы
-const inactiveAdForm = () => {
+const deactivateAdForm = () => {
   adForm.classList.add('ad-form--disabled');
 
   adFormElement.forEach((adFormElement) => {
@@ -26,7 +26,7 @@ const inactiveAdForm = () => {
 }
 
 // Активное состояние формы
-const activeAdForm = () => {
+const activateAdForm = () => {
   adForm.classList.remove('ad-form--disabled');
 
   adFormElement.forEach((adFormElement) => {
@@ -121,7 +121,7 @@ const onResetAdForm = () => {
   onCheckOutChange();
 }
 
-const advertisementFormSubmit = (onSuccess, onError) => {
+const submitAdForm = (onSuccess, onError) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     sendData(
@@ -134,10 +134,10 @@ const advertisementFormSubmit = (onSuccess, onError) => {
 };
 
 export {
-  inactiveAdForm,
-  activeAdForm,
+  deactivateAdForm,
+  activateAdForm,
   fillAddress,
-  advertisementFormSubmit,
+  submitAdForm,
   adFormResetButton,
   onResetAdForm,
   adForm

@@ -1,6 +1,8 @@
 import { removeMapMarkers, renderCards } from './map.js';
 
 const RENDER_DELAY = 500;
+const LOW_PRICE = 10000;
+const HIGH_PRICE = 50000;
 
 const mapFilters = document.querySelector('.map__filters'); // форма фильтрации объявлений
 const mapFilter = document.querySelectorAll('.map__filter'); // выпадающие списки в форме фильтрации
@@ -11,7 +13,7 @@ const housingRoomsSelect = mapFilters.querySelector('#housing-rooms');
 const housingGuestsSelect = mapFilters.querySelector('#housing-guests');
 
 //неактивное состояние фильтров
-const inactiveFilter = () => {
+const deactivateFilter = () => {
   mapFilters.classList.add('map__filters--disabled');
   mapFilter.forEach((filterElement) => {
     filterElement.disabled = true;
@@ -20,7 +22,7 @@ const inactiveFilter = () => {
 };
 
 //активное состояние фильтров
-const activeFilter = () => {
+const activateFilter = () => {
   mapFilters.classList.remove('map__filters--disabled');
   mapFilter.forEach((filterElement) => {
     filterElement.disabled = false;
@@ -41,8 +43,6 @@ const checkType = (advertisement, element) => {
 };
 
 const checkPrice = (advertisement, element) => {
-  const LOW_PRICE = 10000;
-  const HIGH_PRICE = 50000;
   switch (element.value) {
     case 'any':
       return true;
@@ -75,7 +75,7 @@ const checkFeatures = (advertisement) => {
   checkedFeatures.forEach((feature) => {
     if (advertisement.offer.features.includes(feature.value)) {
       count++;
-    }      
+    }
   })
 
   return count === checkedFeatures.length;
@@ -108,8 +108,8 @@ const setFilterChange = (advertisements) => {
 };
 
 export {
-  inactiveFilter,
-  activeFilter,
+  deactivateFilter,
+  activateFilter,
   mapFilters,
   setFilterChange
 };
