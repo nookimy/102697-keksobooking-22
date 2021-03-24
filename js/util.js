@@ -24,7 +24,6 @@ const getArrayRandomLength = (inputArray)  => {
   for (let i = 0; i < length; i++) { //формируем выходной массив
     const randomIndex = getRandomInt(0, copyArray.length - 1);
     const randomElement = copyArray[randomIndex]; //взяли эллемент из копии
-    // console.log(randomElement);
     outputArray.push(randomElement);  // вставили его в выходной массив
     copyArray.splice(randomIndex, 1); //удаляем элемент из коппии, чтобы на следующей итерации небыло возможности взять дубль.
   }

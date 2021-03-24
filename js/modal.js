@@ -10,24 +10,28 @@ document.body.append(successModal);
 document.body.append(errorModal);
 
 const closeModal = (modal) => {
+  removeHandlers(modal);
   modal.classList.add('hidden');
 };
 
-const onModalKeydown = (modal) => {
+const removeHandlers = (modal) => {
+  document.removeEventListener('keydown', keyDownHandler(modal));
+  modal.removeEventListener('click', onClickHandler(modal));
+  if (modal === errorModal) {
+    tryAgainButton.removeEventListener('click', onClickHandler(errorModal));
+  }
+};
+
+const keyDownHandler = (modal) => {
   return (evt) => {
     if (isEscEvent(evt) || isEnterEvent(evt)) {
       evt.preventDefault();
-      modal.removeEventListener('keydown', onModalKeydown(modal));
-      modal.removeEventListener('click', onClick(modal));
       closeModal(modal);
-    }
-    if (modal === errorModal) {
-      tryAgainButton.removeEventListener('click', onClick(errorModal));
     }
   }
 };
 
-const onClick = (modal) => {
+const onClickHandler = (modal) => {
   return (evt) => {
     evt.preventDefault();
     closeModal(modal);
@@ -37,8 +41,8 @@ const onClick = (modal) => {
 const showModal = (modal) => {
   modal.classList.remove('hidden');
   modal.style.zIndex = '10000';
-  document.addEventListener('keydown', onModalKeydown(successModal));
-  modal.addEventListener('click', onClick(successModal));
+  document.addEventListener('keydown', keyDownHandler(modal));
+  modal.addEventListener('click', onClickHandler(modal));
 };
 
 const showSuccessModal = () => {
@@ -47,7 +51,7 @@ const showSuccessModal = () => {
 
 const showErrorModal = () => {
   showModal(errorModal);
-  tryAgainButton.addEventListener('click', onClick(errorModal));
+  tryAgainButton.addEventListener('click', onClickHandler(errorModal));
 };
 
-export { showSuccessModal, closeModal, showErrorModal };
+export { showSuccessModal, showErrorModal };
