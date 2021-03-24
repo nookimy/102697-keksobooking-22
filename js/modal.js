@@ -13,11 +13,11 @@ const closeModal = (modal) => {
   modal.classList.add('hidden');
 };
 
-const onModalEscKeydown = (modal) => {
+const onModalKeydown = (modal) => {
   return (evt) => {
     if (isEscEvent(evt) || isEnterEvent(evt)) {
       evt.preventDefault();
-      modal.removeEventListener('keydown', onModalEscKeydown(modal));
+      modal.removeEventListener('keydown', onModalKeydown(modal));
       modal.removeEventListener('click', onClick(modal));
       closeModal(modal);
     }
@@ -37,7 +37,7 @@ const onClick = (modal) => {
 const showModal = (modal) => {
   modal.classList.remove('hidden');
   modal.style.zIndex = '10000';
-  document.addEventListener('keydown', onModalEscKeydown(successModal));
+  document.addEventListener('keydown', onModalKeydown(successModal));
   modal.addEventListener('click', onClick(successModal));
 };
 
