@@ -34,11 +34,11 @@ const activateFilter = () => {
   mapFeatures.disabled = false;
 };
 
-function debounce (fn, wait) {
-  let t;
+const debounce = (fn, wait) => {
+  let timeout;
   return function () {
-    clearTimeout(t);
-    t = setTimeout(() => fn.apply(this, arguments), wait);
+    clearTimeout(timeout);
+    timeout = setTimeout(() => fn.apply(this, arguments), wait);
   }
 };
 
