@@ -55,11 +55,24 @@ const onFileUpload = (fileChooser, preview, FILE_TYPES) => {
   }
 }
 
+const isEnterEvent = (evt) => evt.key === 'Enter';
+
+const isEscEvent = (evt) => {
+  return evt.key === 'Escape' || evt.key === 'Esc';
+};
+
+const isInPage = (node) => {
+  return (node === document.body) ? false : document.body.contains(node);
+};
+
 export {
   getRandomInt,
   getRandomFloat,
   getRandomArrayElement,
   getArrayRandomLength,
   onFileUpload,
-  FILE_TYPES
+  FILE_TYPES,
+  isEnterEvent,
+  isEscEvent,
+  isInPage
 };

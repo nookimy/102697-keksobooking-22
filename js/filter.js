@@ -1,8 +1,12 @@
+import { isEscEvent, isInPage } from './util.js';
 import { removeMapMarkers, renderCards } from './map.js';
 
 const RENDER_DELAY = 500;
 const LOW_PRICE = 10000;
 const HIGH_PRICE = 50000;
+
+const leafletPane = document.querySelector('.leaflet-pane');
+const leafletAllMarkers = document.querySelector('.leaflet-marker-pane');
 
 const mapFilters = document.querySelector('.map__filters'); // форма фильтрации объявлений
 const mapFilter = document.querySelectorAll('.map__filter'); // выпадающие списки в форме фильтрации
@@ -107,9 +111,23 @@ const setFilterChange = (advertisements) => {
   mapFilters.addEventListener('change', onFilterChange(advertisements));
 };
 
+const closeBalun = () => {
+  if (isInPage(leafletPane.querySelector('.leaflet-popup'))) {
+    document.querySelector('.leaflet-popup-close-button').click();
+  }
+};
+
+leafletAllMarkers.addEventListener('keydown', (evt) => {
+  if (isEscEvent(evt)) {
+    evt.preventDefault();
+    closeBalun();
+  }
+});
+
 export {
   deactivateFilter,
   activateFilter,
   mapFilters,
-  setFilterChange
+  setFilterChange,
+  closeBalun
 };

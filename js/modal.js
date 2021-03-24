@@ -1,3 +1,5 @@
+import { isEnterEvent, isEscEvent} from './util.js';
+
 const successModal = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
 const errorModal = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
 const tryAgainButton = errorModal.querySelector('.error__button');
@@ -6,12 +8,6 @@ successModal.classList.add('hidden');
 errorModal.classList.add('hidden');
 document.body.append(successModal);
 document.body.append(errorModal);
-
-const isEnterEvent = (evt) => evt.key === 'Enter';
-
-const isEscEvent = (evt) => {
-  return evt.key === 'Escape' || evt.key === 'Esc';
-};
 
 const closeModal = (modal) => {
   modal.classList.add('hidden');

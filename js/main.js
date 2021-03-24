@@ -30,7 +30,7 @@ import {
 } from './form.js';
 
 import { showErrorModal, showSuccessModal } from './modal.js';
-import { deactivateFilter, mapFilters, setFilterChange } from './filter.js';
+import { deactivateFilter, mapFilters, setFilterChange, closeBalun } from './filter.js';
 import { clearOutAvatar } from './avatar.js';
 import { clearOutPhoto } from './photo.js';
 
@@ -63,6 +63,7 @@ let advertisementsToRender = [];
 const setDefaults = () => {
   mapFilters.reset();
   adForm.reset();
+  closeBalun();
   clearOutAvatar();
   clearOutPhoto();
   resetMainPinMarker();
