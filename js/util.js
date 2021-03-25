@@ -30,6 +30,22 @@ const getArrayRandomLength = (inputArray)  => {
   return outputArray;
 };
 
+// склонение окончания существительных
+const getNumeralDeclension = (number, words) => {
+  number = Math.abs(number) % 100;
+  const number2 = number % 10;
+  if (number > 10 && number < 20) {
+    return words[2];
+  }
+  if (number2 > 1 && number2 < 5) {
+    return words[1];
+  }
+  if (number2 === 1) {
+    return words[0];
+  }
+  return words[2];
+}
+
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const onFileUpload = (fileChooser, preview, FILE_TYPES) => {
@@ -69,6 +85,7 @@ export {
   getRandomFloat,
   getRandomArrayElement,
   getArrayRandomLength,
+  getNumeralDeclension,
   onFileUpload,
   FILE_TYPES,
   isEnterEvent,

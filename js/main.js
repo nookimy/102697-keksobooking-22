@@ -34,6 +34,8 @@ import { deactivateFilter, mapFilters, setFilterChange, closeBalun } from './fil
 import { clearOutAvatar } from './avatar.js';
 import { clearOutPhoto } from './photo.js';
 
+const ALERT_SHOW_TIME = 5000;
+
 const showAlert = (message='Не удалось загрузить данные') => {
   return () => {
     const alertContainer = document.createElement('div');
@@ -53,7 +55,7 @@ const showAlert = (message='Не удалось загрузить данные'
 
     setTimeout(() => {
       alertContainer.remove();
-    }, 5000);
+    }, ALERT_SHOW_TIME);
   }
 }
 

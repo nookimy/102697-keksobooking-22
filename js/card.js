@@ -1,3 +1,5 @@
+import { getNumeralDeclension } from './util.js';
+
 const PROPERTY_TYPES = {
   palace: 'Дворец',
   flat: 'Квартира',
@@ -5,25 +7,29 @@ const PROPERTY_TYPES = {
   bungalow: 'Бунгало',
 };
 
+const ROOMS_DECLENSION = [
+  'комната',
+  'комнаты',
+  'комнат',
+];
+
+const GUESTS_DECLENSION = [
+  'гостя',
+  'гостей',
+  'гостей',
+];
+
+const PhotoPreviewSize = {
+  WIDTH: 45,
+  HEIGHT: 40,
+};
+
+const AvatarSize = {
+  WIDTH: 70,
+  HEIGHT: 70,
+};
+
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-
-const getGuestsNumber = (guests) => {
-  return (guests % 10 === 1 && guests !== 11) ? `${guests} гостя` : `${guests} гостей`;
-}
-
-const getRoomsNumber = (rooms) => {
-  const reminder = rooms % 10;
-  if (rooms >= 5 && rooms <= 20 || rooms === 0) {
-    return `${rooms} комнат`;
-  }
-  if (reminder === 1) {
-    return `${rooms} комната`;
-  }
-  if (reminder > 1 && reminder < 5) {
-    return `${rooms} комнаты`;
-  }
-  return `${rooms} комнат`;
-}
 
 const renderCard = (({author, offer}) => {
   const cardElement = cardTemplate.cloneNode(true);
@@ -31,7 +37,7 @@ const renderCard = (({author, offer}) => {
   cardElement.querySelector('.popup__title').textContent = offer.title;
   cardElement.querySelector('.popup__text--address').textContent = offer.address;
   cardElement.querySelector('.popup__type').textContent = PROPERTY_TYPES[offer.type];
-  cardElement.querySelector('.popup__text--capacity').textContent = `${getRoomsNumber(offer.rooms)} для ${getGuestsNumber(offer.guests)}`;
+  cardElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} ${getNumeralDeclension(offer.rooms, ROOMS_DECLENSION)} для ${offer.guests} ${getNumeralDeclension(offer.guests, GUESTS_DECLENSION)}`;
   cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
   cardElement.querySelector('.popup__description').textContent = offer.description;
 
@@ -53,20 +59,20 @@ const renderCard = (({author, offer}) => {
 
   // Фото
   const photosList = cardElement.querySelector('.popup__photos');
-  const renderPhotosList = (width, height) => {
+  const renderPhotosList = () => {
     photosList.textContent = '';
     offer.photos.forEach((item, i) => {
       let photo = document.createElement('img');
       photo.src = offer.photos[i];
       photo.classList.add('popup__photo');
-      photo.style.width = `${width}px`;
-      photo.style.height = `${height}px`;
+      photo.style.width = `${PhotoPreviewSize.WIDTH}px`;
+      photo.style.height = `${PhotoPreviewSize.HEIGHT}px`;
       photo.alt = 'Фотография жилья';
       photosList.appendChild(photo);
     });
   };
   if (offer.photos.length > 0) {
-    renderPhotosList(45, 40);
+    renderPhotosList();
   } else {
     photosList.remove();
   }
@@ -82,14 +88,14 @@ const renderCard = (({author, offer}) => {
   renderPrice();
 
   // Аватар
-  const renderAvatar = (src, width, height) => {
+  const renderAvatar = (src) => {
     const avatar = cardElement.querySelector('.popup__avatar');
     avatar.src = src;
-    avatar.style.width = `${width}px`;
-    avatar.style.height = `${height}px`;
+    avatar.style.width = `${AvatarSize.WIDTH}px`;
+    avatar.style.height = `${AvatarSize.HEIGHT}px`;
     return avatar;
   }
-  renderAvatar(author.avatar, 70, 70);
+  renderAvatar(author.avatar);
 
   return cardElement;
 })

@@ -3,6 +3,7 @@ import { sendData } from './data-api.js';
 
 const TITLE_LENGTH_MIN = 30;
 const TITLE_LENGTH_MAX = 100;
+const MAX_PRICE = 1000000;
 const POST_URL = 'https://22.javascript.pages.academy/keksobooking';
 const adForm = document.querySelector('.ad-form');
 const adFormElement = document.querySelectorAll('fieldset');
@@ -56,7 +57,7 @@ const fillAddress = (lat, long) => {
 // Зависимость минимальной цены от типа жилья
 price.min = MIN_PRICES[type.value];
 price.setAttribute('min', price.min);
-price.setAttribute('max', 1000000);
+price.setAttribute('max', MAX_PRICE);
 
 const onPriceInput = () => {
   price.reportValidity();
